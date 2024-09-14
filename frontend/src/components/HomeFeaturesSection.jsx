@@ -18,55 +18,51 @@ export const HomeFeaturesSection = (props) => {
   };
 
   return (
-    <Box as="section" py={{ base: 16, md: 24, lg: 28 }} px={{ base: "5%" }}>
-      <Container maxW="container.xl" centerContent>
-        {/* Tagline, Heading, Description */}
-        <VStack
-          spacing={6}
-          mb={{ base: 12, md: 18, lg: 20 }}
-          textAlign="center"
+    <Box as="section" px={{ base: "5%" }}>
+      {/* Tagline, Heading, Description */}
+      <VStack spacing={6} mb={{ base: 12, md: 18, lg: 20 }} textAlign="center">
+        <Text fontSize="sm" fontWeight="semibold" color="gray.400">
+          {tagline}
+        </Text>
+        <Heading
+          as="h3"
+          fontSize={["3xl", "4xl"]}
+          fontWeight="bold"
+          color="blue.600"
         >
-          <Text fontSize="sm" fontWeight="semibold" color="gray.400">
-            {tagline}
-          </Text>
-          <Heading
-            as="h3"
-            fontSize={["3xl", "4xl"]}
-            fontWeight="bold"
-            color="blue.600"
-          >
-            {heading}
-          </Heading>
-          <Text color="gray.500" mb='2rem'>{description}</Text>
-        </VStack>
+          {heading}
+        </Heading>
+        <Text color="gray.500" mb="2rem">
+          {description}
+        </Text>
+      </VStack>
 
-        {/* Sections */}
-        <SimpleGrid
-          columns={{ base: 1, md: 3 }}
-          spacing={{ base: 12, md: 8, lg: 12 }}
-        >
-          {sections.map((section, index) => (
-            <VStack key={index} spacing={6} textAlign="center">
-              <Icon
-                color="blue.500"
-                as={section.icon.src}
-                boxSize="48px"
-                mb={4}
-              />
-              <HStack>{section.icon.src}</HStack>
-              <Heading
-                as="h3"
-                fontSize={"xl"}
-                fontWeight="bold"
-                color={"blue.600"}
-              >
-                {section.heading}
-              </Heading>
-              <Text color="gray.500">{section.description}</Text>
-            </VStack>
-          ))}
-        </SimpleGrid>
-      </Container>
+      {/* Sections */}
+      <SimpleGrid
+        columns={{ base: 1, md: 3 }}
+        spacing={{ base: 12, md: 8, lg: 12 }}
+      >
+        {sections.map((section, index) => (
+          <VStack key={index} spacing={6} textAlign="center">
+            <Icon
+              color="blue.500"
+              as={section.icon.src}
+              boxSize="48px"
+              mb={4}
+            />
+            <HStack>{section.icon.src}</HStack>
+            <Heading
+              as="h3"
+              fontSize={"xl"}
+              fontWeight="bold"
+              color={"blue.600"}
+            >
+              {section.heading}
+            </Heading>
+            <Text color="gray.500">{section.description}</Text>
+          </VStack>
+        ))}
+      </SimpleGrid>
     </Box>
   );
 };

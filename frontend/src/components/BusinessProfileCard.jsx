@@ -22,6 +22,7 @@ function BusinessProfileCard() {
         bg="white"
         shadow={"md"}
         align={"stretch"}
+        _hover={{ shadow: "xl" }}
       >
         <HStack spacing={5}>
           <Avatar
