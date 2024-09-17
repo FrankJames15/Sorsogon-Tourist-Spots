@@ -1,8 +1,10 @@
-import { Box, Container, Grid, Heading } from "@chakra-ui/react";
+import { Box, Container, Grid, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import BusinessProfileCard from "../components/BusinessProfileCard";
+import { useLoaderData } from "react-router-dom";
 
 function BusinessProfiles() {
+  const business_profiles = useLoaderData();
   return (
     <>
       <Box px={"5%"} py={"32px"} bg={"gray.50"} border={"3px dashed"}>
@@ -15,10 +17,10 @@ function BusinessProfiles() {
             Business Profiles
           </Heading>
           <Grid templateColumns={"repeat(auto-fill, minmax(300px, 1fr))"} gap={6} mt={8}>
-            <BusinessProfileCard />
-            <BusinessProfileCard />
-            <BusinessProfileCard />
-            <BusinessProfileCard />
+            {business_profiles.map((business_profile, index) => (
+              <BusinessProfileCard business_profile={business_profile} key={index} />
+            ))}
+            
           </Grid>
         </Container>
       </Box>

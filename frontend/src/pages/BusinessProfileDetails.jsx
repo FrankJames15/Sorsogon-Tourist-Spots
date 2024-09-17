@@ -19,8 +19,6 @@ import {
   Button,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Input,
   Textarea,
   Select,
@@ -36,19 +34,8 @@ import RatingStars from "../components/RatingStars";
 import BusinessProfileCard from "../components/BusinessProfileCard";
 
 function BusinessProfileDetails() {
-  const spot = useLoaderData();
-
-  const { name, description, details, reviews } = spot;
-  const {
-    overview,
-    address,
-    distance_from_city,
-    estimated_travel_time,
-    key_features,
-    activities,
-    travel_tips,
-  } = details;
-  const { user, rating, comment, date } = reviews;
+  const business_profile_detail = useLoaderData();
+  const { id, name, details, reviews } = business_profile_detail;
 
   return (
     <>
@@ -56,7 +43,7 @@ function BusinessProfileDetails() {
         <Container maxW={"container.xl"}>
           <Grid align={"center"} mb={4}>
             <Heading color={"blue.600"}>{name}</Heading>
-            <Text color={"gray.400"}>{description}</Text>
+            <Text color={"gray.400"}>{}</Text>
           </Grid>
           <Tabs color={"gray.500"} position="relative">
             <TabList
@@ -67,57 +54,12 @@ function BusinessProfileDetails() {
               opacity={"0.95"}
             >
               <Tab>Details</Tab>
-              <Tab>Products/Services around here</Tab>
               <Tab>Reviews</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
-                <Box maxW="800px" mx="auto">
-                  {details.map((section, index) => (
-                    <Box key={index} mb={8}>
-                      <Heading as="h3" size="lg" mb={4} color="blue.600">
-                        {section.name.charAt(0).toUpperCase() +
-                          section.name.slice(1)}
-                      </Heading>
-
-                      {Array.isArray(section.content) ? (
-                        // Render as list if content is an array
-                        <UnorderedList ml={4}>
-                          {section.content.map((item, idx) =>
-                            typeof item === "string" ? (
-                              <ListItem key={idx}>{item}</ListItem>
-                            ) : (
-                              <ListItem key={idx}>
-                                <Text as="strong">{item.name}: </Text>
-                                {item.content}
-                              </ListItem>
-                            )
-                          )}
-                        </UnorderedList>
-                      ) : (
-                        // Render as text if content is a string
-                        <Text>{section.content}</Text>
-                      )}
-                    </Box>
-                  ))}
-                </Box>
-              </TabPanel>
-              <TabPanel>
-                {/* PRODUCTS/SERVICES section  */}
-                <Grid
-                  gridTemplateColumns="repeat(auto-fit, minmax(350px, 1fr))"
-                  gap={6}
-                  justifyContent={"center"}
-                  justifyItems={"center"}
-                >
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                </Grid>
+                
+                Details
               </TabPanel>
               <TabPanel>
                 {/* REVIEWS section  */}

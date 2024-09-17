@@ -14,6 +14,9 @@ import spotDetailsLoader from "./loaders/spotDetailsLoader.js";
 import TouristSpotsLayout from "./layouts/TouristSpotsLayout.jsx";
 import BusinessProfilesLayout from "./layouts/BusinessProfilesLayout.jsx";
 import BusinessProfiles from "./pages/BusinessProfiles.jsx";
+import BusinessProfileDetails from "./pages/BusinessProfileDetails.jsx";
+import businessDetailsLoader from "./loaders/businessDetailsLoader.js";
+import businessProfilesLoader from "./loaders/businessProfilesLoader.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +33,16 @@ const router = createBrowserRouter(
         <Route path="*" element={<NotFound />} />
       </Route>
       <Route path="business" element={<BusinessProfilesLayout />}>
-        <Route index element={<BusinessProfiles />} />
+        <Route
+          index
+          element={<BusinessProfiles />}
+          loader={businessProfilesLoader}
+        />
+        <Route
+          path=":id"
+          element={<BusinessProfileDetails />}
+          loader={businessDetailsLoader}
+        />
       </Route>
 
       <Route path="*" element={<NotFound />} />

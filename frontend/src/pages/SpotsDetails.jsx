@@ -109,15 +109,7 @@ function SpotsDetails() {
                   gap={6}
                   justifyContent={"center"}
                   justifyItems={"center"}
-                >
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                  <BusinessProfileCard />
-                </Grid>
+                ></Grid>
               </TabPanel>
               <TabPanel>
                 {/* REVIEWS section  */}

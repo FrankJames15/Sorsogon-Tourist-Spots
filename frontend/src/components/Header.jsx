@@ -54,6 +54,9 @@ function Header({ ...props }) {
             <Button as={NavLink} to="/spots" variant="ghost" colorScheme="blue">
               Tourist Spots
             </Button>
+            <Button as={NavLink} to="/business" variant="ghost" colorScheme="blue">
+              Local Businesses
+            </Button>
             <Button
               me="md:5"
               as={NavLink}

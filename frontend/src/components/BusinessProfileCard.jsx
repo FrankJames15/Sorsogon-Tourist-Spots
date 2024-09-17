@@ -1,16 +1,14 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  HStack,
-  Heading,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Avatar, Button, HStack, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import ReviewRating from "./ReviewRating";
+import { NavLink } from "react-router-dom";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
-function BusinessProfileCard() {
+function BusinessProfileCard({ business_profile }) {
+  const { id, name, type, reviews, description } = business_profile;
+  const rating =
+    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+  const reviewsCount = reviews.length;
   return (
     <>
       <VStack
@@ -25,29 +23,25 @@ function BusinessProfileCard() {
         _hover={{ shadow: "xl" }}
       >
         <HStack spacing={5}>
-          <Avatar
-            size={"lg"}
-            name={business_profile.businessName}
-            bg="blue.500"
-          ></Avatar>
+          <Avatar size={"lg"} name={name} bg="blue.500"></Avatar>
           <VStack align={"start"} spacing={"1px"}>
             <Text fontSize={"1.5rem"} fontWeight={"500"} color={"blue.500"}>
-              {business_profile.businessName}
+              {name}
             </Text>
-            <Text color={"gray.500"}>{business_profile.businessType}</Text>
-            <ReviewRating
-              avgRating={business_profile.rating}
-              reviewCount={business_profile.reviewsCount}
-            />
+            <Text color={"gray.500"}>{type}</Text>
+            <ReviewRating avgRating={rating} reviewCount={reviewsCount} />
           </VStack>
         </HStack>
         <VStack align={"start"}>
-          <Text color={"gray.400"}>{business_profile.description}</Text>
+          <Text color={"gray.400"}>{description}</Text>
           <Button
             colorScheme="blue"
+            as={NavLink}
+            to={`/business/${id}`}
             variant={"ghost"}
             w={"100%"}
             alignSelf={"center"}
+            rightIcon={<ChevronRightIcon />}
           >
             View Business
           </Button>
@@ -58,12 +52,3 @@ function BusinessProfileCard() {
 }
 
 export default BusinessProfileCard;
-
-export const business_profile = {
-  businessName: "Business Name",
-  businessType: "Type of business",
-  description:
-    "Description of business lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.",
-  rating: 4,
-  reviewsCount: 100,
-};
