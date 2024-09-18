@@ -9,8 +9,13 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/test", require("./routes/templateRoute"));
+app.use("/api/tourist-spots", require("./routes/touristSpotsRoutes"));
 
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log(`\nServer started on PORT ${PORT}...`));
+connectDB().then(() =>
+  app.listen(PORT, () =>
+    console.log(`\nServer started on PORT ${PORT}...`.yellow.bold)
+  )
+);
+
