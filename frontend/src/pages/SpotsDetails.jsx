@@ -79,7 +79,7 @@ function SpotsDetails() {
                         {section.name.charAt(0).toUpperCase() +
                           section.name.slice(1)}
                       </Heading>
-
+                      
                       {Array.isArray(section.content) ? (
                         // Render as list if content is an array
                         <UnorderedList ml={4}>

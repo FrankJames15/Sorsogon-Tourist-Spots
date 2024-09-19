@@ -1,7 +1,7 @@
 const spotDetailsLoader = async ({ params }) => {
   const { id } = params;
   const response = await fetch(
-    `http://localhost:8000/tourist_spots/${id}`
+    `http://localhost:5000/api/tourist-spots/${id}`
   );
 
   if (!response.ok) {

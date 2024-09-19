@@ -54,7 +54,7 @@ function SpotCard({ data, ...props }) {
 
                 <Button
                   as={ReactRouterLink}
-                  to={`/spots/${spot.id}`}
+                  to={`/spots/${spot._id}`}
                   colorScheme={"blue"}
                   variant={"ghost"}
                   rightIcon={<ChevronRightIcon />}

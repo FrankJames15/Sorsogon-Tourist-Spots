@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 function BusinessProfileCard({ business_profile }) {
-  const { id, name, type, reviews, description } = business_profile;
+  const { _id, name, type, reviews, description } = business_profile;
   const rating =
     reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
   const reviewsCount = reviews.length;
@@ -37,7 +37,7 @@ function BusinessProfileCard({ business_profile }) {
           <Button
             colorScheme="blue"
             as={NavLink}
-            to={`/business/${id}`}
+            to={`/business/${_id}`}
             variant={"ghost"}
             w={"100%"}
             alignSelf={"center"}

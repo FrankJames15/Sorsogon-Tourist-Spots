@@ -1,6 +1,4 @@
 import React from "react";
-import SectionTemplate from "../components/section templates/SectionTemplate";
-import SectionHeading from "../components/section templates/SectionHeading";
 
 import { useLoaderData } from "react-router-dom";
 import {

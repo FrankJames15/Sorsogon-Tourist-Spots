@@ -1,5 +1,5 @@
 const businessProfilesLoader = async () => {
-  const spots = await fetch("http://localhost:7000/business-profiles");
+  const spots = await fetch("http://localhost:5000/api/business-profiles");
   return spots.json();
 };
 
