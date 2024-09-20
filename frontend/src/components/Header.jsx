@@ -60,6 +60,7 @@ function Header({ ...props }) {
             <Button
               me="md:5"
               as={NavLink}
+              to="/admin"
               variant="solid"
               size="sm"
               colorScheme="blue"

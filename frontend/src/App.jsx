@@ -17,7 +17,11 @@ import BusinessProfiles from "./pages/BusinessProfiles.jsx";
 import BusinessProfileDetails from "./pages/BusinessProfileDetails.jsx";
 import businessDetailsLoader from "./loaders/businessDetailsLoader.js";
 import businessProfilesLoader from "./loaders/businessProfilesLoader.js";
-import Test from "./components/admin/Test.jsx";
+import AdminLayout from "./components/admin/adminLayout.jsx";
+import AdminSpots from "./components/admin/AdminSpots.jsx";
+import Dashboard from "./components/admin/Dashboard.jsx";
+import AdminBusiness from "./components/admin/AdminBusiness.jsx";
+import AdminReviews from "./components/admin/AdminReviews.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,7 +54,13 @@ const router = createBrowserRouter(
 
         <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="admin" element={<Test/>} />
+      <Route path="admin" element={<AdminLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="spots" element={<AdminSpots />} loader={spotsLoader} />
+        <Route path="business" element={<AdminBusiness />} />
+        <Route path="reviews" element={<AdminReviews />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </>
   )
 );
