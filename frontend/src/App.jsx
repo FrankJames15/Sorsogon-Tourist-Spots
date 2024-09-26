@@ -18,7 +18,7 @@ import BusinessProfileDetails from "./pages/BusinessProfileDetails.jsx";
 import businessDetailsLoader from "./loaders/businessDetailsLoader.js";
 import businessProfilesLoader from "./loaders/businessProfilesLoader.js";
 import AdminLayout from "./components/admin/adminLayout.jsx";
-import AdminSpots from "./components/admin/AdminSpots.jsx";
+import AdminSpots from "./components/admin/admin-spots/AdminSpots.jsx";
 import Dashboard from "./components/admin/Dashboard.jsx";
 import AdminBusiness from "./components/admin/AdminBusiness.jsx";
 import AdminReviews from "./components/admin/AdminReviews.jsx";

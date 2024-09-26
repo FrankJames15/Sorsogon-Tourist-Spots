@@ -6,10 +6,24 @@ const touristSpotSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    location: {
+    address: {
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      // required: true,
+    },
+    details: {
+      type: String,
+      // required: true,
+    },
+    reviews: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
   },
   {
     timestamps: true,

@@ -44,12 +44,12 @@ function SpotCard({ data, ...props }) {
 
                 <ReviewRating
                   avgRating={
-                    spot.reviews.reduce(
-                      (acc, review) => acc + review.rating,
+                    spot?.reviews?.reduce(
+                      (acc, review) => acc + review?.rating,
                       0
-                    ) / spot.reviews.length
+                    ) / spot?.reviews?.length
                   }
-                  reviewCount={spot.reviews.length}
+                  reviewCount={spot?.reviews?.length}
                 />
 
                 <Button

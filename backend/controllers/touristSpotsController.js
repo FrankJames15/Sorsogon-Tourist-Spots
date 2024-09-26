@@ -22,10 +22,12 @@ const getSpotById = asyncHandler(async (req, res) => {
 // @route   POST /api/tourist-spots
 // @access  Private/Admin
 const addSpot = asyncHandler(async (req, res) => {
-  const { name, location } = req.body;
+  const { name, address, description, details } = req.body;
   const spot = new Spot({
     name,
-    location,
+    address,
+    description,
+    details,
   });
   const createdSpot = await spot.save();
   res.status(201).json(createdSpot);
