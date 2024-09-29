@@ -34,7 +34,7 @@ const addSpot = asyncHandler(async (req, res) => {
 });
 
 // @desc    Update a tourist spot
-// @route   PUT /api/tourist-spots/:id
+// @route   PATCH /api/tourist-spots/:id
 // @access  Private/Admin
 const updateSpot = asyncHandler(async (req, res) => {
   console.log(req.method, req.url, req.params.id);

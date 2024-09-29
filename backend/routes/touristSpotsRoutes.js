@@ -12,7 +12,7 @@ router.route("/").get(getSpots).post(addSpot);
 router
   .route("/:id")
   .get(getSpotById)
-  .put(updateSpot)
+  .patch(updateSpot)
   .delete(deleteSpot);
 
 module.exports = router;

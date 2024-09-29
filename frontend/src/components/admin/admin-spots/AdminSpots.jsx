@@ -16,11 +16,20 @@ import {
   Spacer,
   Text,
   Box,
+  InputRightElement,
+  Icon,
+  textDecoration,
+  Tooltip,
 } from "@chakra-ui/react";
 
+import { Link } from "react-router-dom";
+import { ViewIcon, EditIcon, DeleteIcon, AddIcon } from "@chakra-ui/icons";
+
 import CustomModal from "../../CustomModal";
-import { useLoaderData } from "react-router-dom";
+import { isRouteErrorResponse, useLoaderData } from "react-router-dom";
 import SpotsForm from "./SpotsForm";
+import EditSpotModal from "./EditSpotModal";
+import SpotPreviewModal from "./SpotPreviewModal";
 
 function AdminSpots() {
   const spots = useLoaderData();
@@ -47,9 +56,10 @@ function AdminSpots() {
           <CustomModal
             button_props={{
               size: "sm",
-              colorScheme: "blue",
+              colorScheme: "green",
+              LeftIcon: AddIcon ,
             }}
-            button_label="Add Spot"
+            button_label="Add"
             header="Add Spot"
             modal_props={{
               size: "2xl",
@@ -81,15 +91,21 @@ function AdminSpots() {
               {spots.map((spot) => {
                 const { _id, name, address, description, reviews } = spot;
 
-                // Calculate the average rating
-
-                const rating =
-                  reviews?.reduce((acc, review) => acc + review?.rating, 0) /
-                  reviews?.length;
+                // Calculate the average rating and show rating if there are reviews
+                let rating = 0;
+                if (reviews?.length < 1) {
+                  rating = "No reviews yet";
+                } else {
+                  rating =
+                    reviews?.reduce((acc, review) => acc + review.rating, 0) /
+                    reviews?.length;
+                }
 
                 return (
                   <Tr key={_id}>
-                    <Td>{name}</Td>
+                    <Td>
+                      <SpotPreviewModal spot={spot} />
+                    </Td>
                     <Td>{address}</Td>
                     <Td
                       maxWidth={"300px"}
@@ -101,10 +117,13 @@ function AdminSpots() {
                     </Td>
                     <Td>{rating}</Td>
                     <Td>
+                      <EditSpotModal spot={spot} />
                       <CustomModal
                         button_props={{
                           size: "sm",
                           colorScheme: "red",
+                          variant: "ghost",
+                          LeftIcon: <DeleteIcon />,
                         }}
                         button_label="Delete"
                         modal_props={{
@@ -118,7 +137,10 @@ function AdminSpots() {
                           </Text>
                         }
                         primary_button_label="Delete"
-                        primary_button_props={{ colorScheme: "red" }}
+                        primary_button_props={{
+                          colorScheme: "red",
+                          variant: "ghost",
+                        }}
                         primary_button_function={() => deleteSpot(_id)}
                       ></CustomModal>
                     </Td>
