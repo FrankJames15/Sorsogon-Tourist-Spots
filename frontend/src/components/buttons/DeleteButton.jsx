@@ -3,14 +3,14 @@ import React from "react";
 import { Button } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 
-function AddButton({ ...props }) {
+function DeleteButton({ ...props }) {
   return (
     <>
-      <Button size="sm" colorScheme="green" LeftIcon={<DeleteIcon />} {...props}>
+      <Button colorScheme="red" leftIcon={<DeleteIcon />} {...props}>
         Delete
       </Button>
     </>
   );
 }
 
-export default AddButton;
+export default DeleteButton;

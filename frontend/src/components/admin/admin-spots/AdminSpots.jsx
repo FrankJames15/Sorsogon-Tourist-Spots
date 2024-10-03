@@ -26,25 +26,15 @@ import { Link } from "react-router-dom";
 import { ViewIcon, EditIcon, DeleteIcon, AddIcon } from "@chakra-ui/icons";
 
 import CustomModal from "../../CustomModal";
-import { isRouteErrorResponse, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import SpotsForm from "./SpotsForm";
 import EditSpotModal from "./EditSpotModal";
 import SpotPreviewModal from "./SpotPreviewModal";
+import DeleteAlert from "../../overlays/DeleteAlert";
+import MenuTemplate from "../../overlays/MenuTemplate";
 
 function AdminSpots() {
   const spots = useLoaderData();
-  async function deleteSpot(id) {
-    const response = await fetch(
-      `http://localhost:5000/api/tourist-spots/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
-    if (response.ok) {
-      // Refresh the page
-      window.location.reload();
-    }
-  }
   return (
     <>
       <Box maxW={"container.xl"}>
@@ -57,7 +47,7 @@ function AdminSpots() {
             button_props={{
               size: "sm",
               colorScheme: "green",
-              LeftIcon: AddIcon ,
+              LeftIcon: AddIcon,
             }}
             button_label="Add"
             header="Add Spot"
@@ -117,32 +107,13 @@ function AdminSpots() {
                     </Td>
                     <Td>{rating}</Td>
                     <Td>
-                      <EditSpotModal spot={spot} />
-                      <CustomModal
-                        button_props={{
-                          size: "sm",
-                          colorScheme: "red",
-                          variant: "ghost",
-                          LeftIcon: <DeleteIcon />,
-                        }}
-                        button_label="Delete"
-                        modal_props={{
-                          size: "sm",
-                        }}
-                        header="Delete Spot"
-                        modal_body={
-                          <Text>
-                            Are you sure you want to <strong> delete </strong>
-                            this spot?
-                          </Text>
-                        }
-                        primary_button_label="Delete"
-                        primary_button_props={{
-                          colorScheme: "red",
-                          variant: "ghost",
-                        }}
-                        primary_button_function={() => deleteSpot(_id)}
-                      ></CustomModal>
+                      <MenuTemplate
+                        button_text="Actions"
+                        items={[
+                          <EditSpotModal spot={spot} />,
+                          <DeleteAlert name={name} id={_id} />,
+                        ]}
+                      />
                     </Td>
                   </Tr>
                 );

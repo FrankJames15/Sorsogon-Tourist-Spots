@@ -16,8 +16,8 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 
-import { EditIcon } from "@chakra-ui/icons";
-export default function EditSpotModal({ spot }) {
+import EditButton from "../../buttons/EditButton";
+export default function EditSpotModal({ spot, button_props }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const formRef = React.useRef();
@@ -34,13 +34,16 @@ export default function EditSpotModal({ spot }) {
       details: formData.get("details"),
     };
 
-    const response = await fetch(`http://localhost:5000/api/tourist-spots/${spot._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newSpot),
-    });
+    const response = await fetch(
+      `http://localhost:5000/api/tourist-spots/${spot._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newSpot),
+      }
+    );
 
     if (response.ok) {
       formRef.current.reset();
@@ -50,22 +53,7 @@ export default function EditSpotModal({ spot }) {
   };
   return (
     <>
-      <Tooltip
-        label="Click to edit"
-        aria-label="Edit Spot"
-        placement="top"
-        openDelay={250}
-      >
-        <Button
-          onClick={onOpen}
-          size="sm"
-          colorScheme="blue"
-          leftIcon={<EditIcon />}
-          variant={"ghost"}
-        >
-          Edit
-        </Button>
-      </Tooltip>
+      <EditButton onClick={onOpen} {...button_props} />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -75,7 +63,7 @@ export default function EditSpotModal({ spot }) {
 
           <form ref={formRef} onSubmit={handleSubmit}>
             <ModalBody>
-              <FormControl id="name" isRequired>
+              <FormControl id="name">
                 <FormLabel>Name</FormLabel>
                 <Input
                   type="text"
@@ -84,7 +72,7 @@ export default function EditSpotModal({ spot }) {
                   defaultValue={spot.name}
                 />
               </FormControl>
-              <FormControl id="address" isRequired>
+              <FormControl id="address">
                 <FormLabel>Address</FormLabel>
                 <Input
                   type="text"
@@ -93,7 +81,7 @@ export default function EditSpotModal({ spot }) {
                   defaultValue={spot.address}
                 />
               </FormControl>
-              <FormControl id="description" isRequired>
+              <FormControl id="description">
                 <FormLabel>Description</FormLabel>
                 <Textarea
                   type="text"

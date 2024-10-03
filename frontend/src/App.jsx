@@ -22,12 +22,14 @@ import AdminSpots from "./components/admin/admin-spots/AdminSpots.jsx";
 import Dashboard from "./components/admin/Dashboard.jsx";
 import AdminBusiness from "./components/admin/AdminBusiness.jsx";
 import AdminReviews from "./components/admin/AdminReviews.jsx";
+import Test from "./pages/Test.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<RootLayout />} loader={spotsLoader}>
         <Route index element={<Home />} loader={spotsLoader} />
+        <Route path="test" element={<Test />} />
 
         <Route path="spots" element={<TouristSpotsLayout />}>
           <Route index element={<TouristSpots />} loader={spotsLoader} />

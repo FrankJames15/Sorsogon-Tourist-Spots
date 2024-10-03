@@ -3,14 +3,18 @@ import React from "react";
 import { Button } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 
-function AddButton({ ...props }) {
+function EditButton({  ...props }) {
   return (
     <>
-      <Button size="sm" colorScheme="green" LeftIcon={<EditIcon />} {...props}>
+      <Button
+        colorScheme="blue"
+        leftIcon={<EditIcon />}
+        {...props}
+      >
         Edit
       </Button>
     </>
   );
 }
 
-export default AddButton;
+export default EditButton;
