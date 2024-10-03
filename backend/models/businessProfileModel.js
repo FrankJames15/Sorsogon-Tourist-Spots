@@ -1,28 +1,50 @@
 const mongoose = require("mongoose");
 
+// Define Business Profile schema
 const businessProfileSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
     },
-    description: {
+    businessType: {
       type: String,
       required: true,
     },
-    location: {
-      type: String,
-      required: true,
+    address: {
+      barangay: {
+        type: String,
+        required: true,
+      },
+      municipality: {
+        type: String,
+        required: true,
+      },
     },
     contactNumber: {
       type: String,
+      validate: {
+        validator: function (v) {
+          return /\d{10}/.test(v); // Simple regex for 10-digit numbers
+        },
+        message: (props) => `${props.value} is not a valid phone number!`,
+      },
     },
     website: {
       type: String,
+      match: [/^https?:\/\/\S+/, "Please enter a valid URL."], // Simple URL validation
+    },
+    description: {
+      type: String,
+      // required: true, // Add validation if description is mandatory
+    },
+    details: {
+      type: String,
+      // required: true, // Add validation if details are mandatory
     },
   },
   {
-    timestamps: true,
+    timestamps: true, // Adds createdAt and updatedAt fields automatically
   }
 );
 

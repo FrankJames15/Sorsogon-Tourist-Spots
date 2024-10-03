@@ -5,10 +5,9 @@ import { NavLink } from "react-router-dom";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 function BusinessProfileCard({ business_profile }) {
-  const { _id, name, type, reviews, description } = business_profile;
-  const rating =
-    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
-  const reviewsCount = reviews.length;
+  const { _id, name, businessType, reviews, description } = business_profile;
+
+  //   reviews?.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
   return (
     <>
       <VStack
@@ -28,8 +27,10 @@ function BusinessProfileCard({ business_profile }) {
             <Text fontSize={"1.5rem"} fontWeight={"500"} color={"blue.500"}>
               {name}
             </Text>
-            <Text color={"gray.500"}>{type}</Text>
-            <ReviewRating avgRating={rating} reviewCount={reviewsCount} />
+            <Text color={"gray.500"}>{businessType}</Text>
+
+            <ReviewRating reviews={reviews} />
+
           </VStack>
         </HStack>
         <VStack align={"start"}>

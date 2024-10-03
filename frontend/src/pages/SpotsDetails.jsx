@@ -1,6 +1,4 @@
 import React from "react";
-import SectionTemplate from "../components/section templates/SectionTemplate";
-import SectionHeading from "../components/section templates/SectionHeading";
 
 import { useLoaderData } from "react-router-dom";
 import {
@@ -34,6 +32,8 @@ import {
 
 import RatingStars from "../components/RatingStars";
 import BusinessProfileCard from "../components/BusinessProfileCard";
+import DetailsTabPanel from "../components/tab panels/DetailsTabPanel";
+import BusinessAround from "../components/tab panels/BusinessAround";
 
 function SpotsDetails() {
   const spot = useLoaderData();
@@ -73,7 +73,9 @@ function SpotsDetails() {
             <TabPanels>
               <TabPanel>
                 <Box maxW="800px" mx="auto">
-                  {details.map((section, index) => (
+                  <DetailsTabPanel data={spot.details} />
+
+                  {/* {details.map((section, index) => (
                     <Box key={index} mb={8}>
                       <Heading as="h3" size="lg" mb={4} color="blue.600">
                         {section.name.charAt(0).toUpperCase() +
@@ -99,11 +101,12 @@ function SpotsDetails() {
                         <Text>{section.content}</Text>
                       )}
                     </Box>
-                  ))}
+                  ))} */}
                 </Box>
               </TabPanel>
               <TabPanel>
                 {/* PRODUCTS/SERVICES section  */}
+                <BusinessAround />
                 <Grid
                   gridTemplateColumns="repeat(auto-fit, minmax(350px, 1fr))"
                   gap={6}

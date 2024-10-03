@@ -25,13 +25,23 @@ const getBusinessProfileById = asyncHandler(async (req, res) => {
 // @route   POST /api/businessProfile
 // @access  Private/Admin
 const addBusinessProfile = asyncHandler(async (req, res) => {
-  const { name, location,
+  const {
+    name,
+    businessType,
+    address,
     description,
+    details,
+    contactNumber,
+    website,
   } = req.body;
   const business_profile = new BusinessProfile({
     name,
-    location,
+    businessType,
+    address,
     description,
+    details,
+    contactNumber,
+    website,
   });
   const created_business_profile = await business_profile.save();
   res.status(201).json(created_business_profile);
