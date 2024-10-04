@@ -69,7 +69,7 @@ export const HomeFeaturesSection = (props) => {
 
 export const PropsDefault = {
   tagline: "Features",
-  heading: "Navigate, Explore, and Discover Sorsogon's Hidden Gems",
+  heading: "Explore Sorsogon's Hidden Gems",
   description:
     "Welcome to Sorsogon Tourist Spots, your ultimate guide to exploringthe breathtaking attractions of Sorsogon. Use our interactive map tonavigate through the city's popular tourist spots, read reviews, anddiscover hidden gems that will make your visit truly memorable.",
   sections: [

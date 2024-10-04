@@ -6,22 +6,23 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
-  AlertDialogCloseButton,
-  Button,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react";
-import DeleteButton from "../buttons/DeleteButton";
-import DeleteAction from "../actions/DeleteAction";
-
-function DeleteAlert({ name = "", url, button_props }) {
+export default function CustomAlertDialog({
+  button_props,
+  button_label = "button_label",
+  dialog_header = "dialog_header",
+  dialog_body = "dialog_body",
+  primary_button,
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
-
   return (
     <>
-      <DeleteButton onClick={onOpen} {...button_props}>
-        Delete{" "}
-      </DeleteButton>
+      <Button onClick={onOpen} {...button_props}>
+        {button_label}
+      </Button>
 
       <AlertDialog
         isOpen={isOpen}
@@ -31,19 +32,26 @@ function DeleteAlert({ name = "", url, button_props }) {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete {name} ?
+              {dialog_header}
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure? You can't undo this action afterwards.
+              {
+                dialog_body 
+              }
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              {/* <DeleteButton onClick={onClose} ml={3} /> */}
-              <DeleteAction url={url} functions={onClose} />
+              {primary_button ? (
+                primary_button
+              ) : (
+                <Button colorScheme="red" onClick={onClose} ml={3}>
+                  Delete
+                </Button>
+              )}
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>
@@ -51,5 +59,3 @@ function DeleteAlert({ name = "", url, button_props }) {
     </>
   );
 }
-
-export default DeleteAlert;

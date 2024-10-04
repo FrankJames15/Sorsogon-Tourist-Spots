@@ -25,7 +25,9 @@ function Home() {
         <Divider />
         <PopularSpots spots_data={spots} />
         <Divider />
-        <HomePreviewBusinesses />
+        <HomePreviewBusinesses
+          spots_data={spots}
+        />
         <Divider />
         <ContactSection />
       </Container>

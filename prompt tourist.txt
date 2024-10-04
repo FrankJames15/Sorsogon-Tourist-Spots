@@ -1,3 +1,5 @@
+following the this schema . . .
+
 const mongoose = require("mongoose");
 
 const touristSpotSchema = new mongoose.Schema(
@@ -18,11 +20,9 @@ const touristSpotSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      // required: true,
     },
     details: {
       type: String,
-      // required: true,
     },
     reviews: [
       {
@@ -39,3 +39,5 @@ const touristSpotSchema = new mongoose.Schema(
 const TouristSpot = mongoose.model("Spot", touristSpotSchema);
 
 module.exports = TouristSpot;
+
+give me  3 popular tourist spot in sorsogon, in json format

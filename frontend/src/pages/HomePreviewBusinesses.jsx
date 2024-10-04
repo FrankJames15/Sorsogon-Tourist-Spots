@@ -5,6 +5,7 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
 
 import BusinessProfileCard from "../components/BusinessProfileCard";
+import CustomGrid from "../components/CustomGrid";
 
 function HomePreviewBusinesses({ spots_data }) {
   return (
@@ -23,14 +24,12 @@ function HomePreviewBusinesses({ spots_data }) {
             <Text color={"gray.500"}>Support local businesses</Text>
           </VStack>
 
-          <Grid
-            templateColumns={"repeat(auto-fill, minmax(300px, 1fr))"}
-            gap={6}
-          >
-            {/* <BusinessProfileCard />
-            <BusinessProfileCard />
-            <BusinessProfileCard /> */}
-          </Grid>
+          <CustomGrid>
+            {spots_data.map((spot, index) => (
+              <BusinessProfileCard key={index} business_profile={spot} />
+            ))}
+          </CustomGrid>
+
           <Button
             as={NavLink}
             to={"/business"}

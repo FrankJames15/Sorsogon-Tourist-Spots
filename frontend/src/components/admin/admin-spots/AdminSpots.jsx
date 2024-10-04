@@ -20,6 +20,8 @@ import {
   Icon,
   textDecoration,
   Tooltip,
+  useDisclosure,
+  Flex,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
@@ -38,16 +40,16 @@ function AdminSpots() {
   return (
     <>
       <Box maxW={"container.xl"}>
-        <HStack>
+        <Flex align={"center"} p={2}>
           <Heading as="h2" size="md" textAlign="center" color="blue.500">
             List of Tourist Spots
           </Heading>
           <Spacer />
           <CustomModal
             button_props={{
-              size: "sm",
+              // size: "sm",
               colorScheme: "green",
-              LeftIcon: AddIcon,
+              leftIcon: <AddIcon />,
             }}
             button_label="Add"
             header="Add Spot"
@@ -59,7 +61,7 @@ function AdminSpots() {
               display: "none",
             }}
           />
-        </HStack>
+        </Flex>
         <TableContainer mt={2}>
           <Table
             variant="striped"
@@ -96,9 +98,9 @@ function AdminSpots() {
                     <Td>
                       <SpotPreviewModal spot={spot} />
                     </Td>
-                    <Td>{address}</Td>
+                    <Td>{address?.barangay + ", " + address?.municipality}</Td>
                     <Td
-                      maxWidth={"300px"}
+                      minW={"300px"}
                       overflow={"hidden"}
                       textOverflow={"ellipsis"}
                       whiteSpace={"wrap"}
@@ -107,12 +109,10 @@ function AdminSpots() {
                     </Td>
                     <Td>{rating}</Td>
                     <Td>
-                      <MenuTemplate
-                        button_text="Actions"
-                        items={[
-                          <EditSpotModal spot={spot} />,
-                          <DeleteAlert name={name} id={_id} />,
-                        ]}
+                      <EditSpotModal spot={spot} />,
+                      <DeleteAlert
+                        name={name}
+                        url={`http://localhost:5000/api/tourist-spots/${_id}`}
                       />
                     </Td>
                   </Tr>

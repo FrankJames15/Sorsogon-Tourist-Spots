@@ -31,23 +31,13 @@ import {
 } from "@chakra-ui/react";
 
 import RatingStars from "../components/RatingStars";
-import BusinessProfileCard from "../components/BusinessProfileCard";
 import DetailsTabPanel from "../components/tab panels/DetailsTabPanel";
 import BusinessAround from "../components/tab panels/BusinessAround";
 
 function SpotsDetails() {
   const spot = useLoaderData();
 
-  const { name, description, details, reviews } = spot;
-  const {
-    overview,
-    address,
-    distance_from_city,
-    estimated_travel_time,
-    key_features,
-    activities,
-    travel_tips,
-  } = details;
+  const { name, description, details, reviews, address } = spot;
   const { user, rating, comment, date } = reviews;
 
   return (
@@ -106,13 +96,7 @@ function SpotsDetails() {
               </TabPanel>
               <TabPanel>
                 {/* PRODUCTS/SERVICES section  */}
-                <BusinessAround />
-                <Grid
-                  gridTemplateColumns="repeat(auto-fit, minmax(350px, 1fr))"
-                  gap={6}
-                  justifyContent={"center"}
-                  justifyItems={"center"}
-                ></Grid>
+                <BusinessAround address={address} />
               </TabPanel>
               <TabPanel>
                 {/* REVIEWS section  */}

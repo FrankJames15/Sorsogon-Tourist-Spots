@@ -1,10 +1,11 @@
 import React from "react";
 import DeleteButton from "../buttons/DeleteButton";
 
-function DeleteAction({ id, functions }) {
+function DeleteAction({ functions, url }) {
   const delete_onclick = async () => {
     const response = await fetch(
-      `http://localhost:5000/api/tourist-spots/${id}`,
+      // `http://localhost:5000/api/tourist-spots/${id}`,
+      url,
       {
         method: "DELETE",
       }

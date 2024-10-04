@@ -59,7 +59,7 @@ const router = createBrowserRouter(
       <Route path="admin" element={<AdminLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="spots" element={<AdminSpots />} loader={spotsLoader} />
-        <Route path="business" element={<AdminBusiness />} />
+        <Route path="business" element={<AdminBusiness />} loader={businessProfilesLoader} />
         <Route path="reviews" element={<AdminReviews />} />
         <Route path="*" element={<NotFound />} />
       </Route>

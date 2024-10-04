@@ -3,7 +3,7 @@ import { AddIcon } from '@chakra-ui/icons'
 import React from 'react'
 
 
-function AddButton({...props}) {
+function AddButton({button_label = "Add", ...props}) {
   return (
     <>
       <Button
@@ -12,7 +12,7 @@ function AddButton({...props}) {
         LeftIcon={<AddIcon />}
         {...props}
       >
-        Add
+        {button_label}
       </Button>
     </>
   )
