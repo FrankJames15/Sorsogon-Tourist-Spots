@@ -1,16 +1,23 @@
 import React from "react";
 import CustomTable from "../custom components/CustomTable";
 import {
-  Tr, Td, Button, HStack, Heading, Spacer,
-  Container
+  Tr,
+  Td,
+  Button,
+  HStack,
+  Heading,
+  Spacer,
+  Container,
 } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import ReviewRating from "../ReviewRating";
 import CustomAlertDialog from "../custom components/CustomAlertDialog";
 import DeleteAction from "../actions/DeleteAction";
-import { DeleteIcon, AddIcon } from "@chakra-ui/icons";
+import { DeleteIcon, AddIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
 import ModalFootless from "../overlays/ModalFootless";
 import BusinessProfileForm from "./admin-spots/BusinessProfileForm";
+import EditBusinessProfileForm from "./EditBusinessProfileForm";
+import ViewBusinessProfile from "./ViewBusinessProfile";
 
 export default function AdminBusiness() {
   const business_profiles = useLoaderData();
@@ -24,7 +31,7 @@ export default function AdminBusiness() {
         borderWidth={1}
         borderRadius={"lg"}
       >
-        <HStack align={'center'} p={2}>
+        <HStack align={"center"} p={2}>
           <Heading as="h2" size="md" textAlign="center" color="blue.500">
             List of Business Profiles
           </Heading>
@@ -35,8 +42,11 @@ export default function AdminBusiness() {
               colorScheme: "green",
               leftIcon: <AddIcon />,
             }}
+            modal_props={{
+              size: "2xl",
+            }}
           >
-           <BusinessProfileForm />
+            <BusinessProfileForm />
           </ModalFootless>
         </HStack>
         {/* Table */}
@@ -71,9 +81,31 @@ export default function AdminBusiness() {
                 </Td>
                 <Td>{<ReviewRating reviews={business_profile?.reviews} />}</Td>
                 <Td>
-                  <Button colorScheme="blue" size="sm">
-                    Edit
-                  </Button>
+                  <ModalFootless
+                    button_label="View"
+                    button_props={{
+                      colorScheme: "blue",
+                      size: "sm",
+                      ms: 2,
+                      leftIcon: <ViewIcon />,
+                    }}
+                  >
+                    <ViewBusinessProfile id={business_profile?._id} 
+                    />
+                  </ModalFootless>
+                  <ModalFootless
+                    button_label="Edit"
+                    button_props={{
+                      colorScheme: "blue",
+                      size: "sm",
+                      ms: 2,
+                      leftIcon: <EditIcon />,
+                    }}
+                  >
+                    <EditBusinessProfileForm
+                      id={business_profile?._id}
+                    />
+                  </ModalFootless>
                   <CustomAlertDialog
                     button_label="Delete"
                     button_props={{

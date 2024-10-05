@@ -1,62 +1,100 @@
 const asyncHandler = require("express-async-handler");
 const BusinessProfile = require("../models/businessProfileModel");
+const Joi = require("joi"); // For validation
 
-// @desc    Get all  businessProfiles
+// Validation schema for adding/updating business profiles
+const businessProfileSchema = Joi.object({
+  name: Joi.string().required(),
+  businessType: Joi.string().required(),
+  address: Joi.object({
+    barangay: Joi.string().required(),
+    municipality: Joi.string().required(),
+  }).required(),
+  contact: Joi.object({
+    phoneNumber: Joi.string()
+      .pattern(/^\+?\d{10,15}$/)
+      .required(),
+    email: Joi.string().email().required(),
+  }).required(),
+  website: Joi.string().uri().optional(),
+  description: Joi.string().optional(),
+  details: Joi.string().optional(),
+});
+
+// @desc    Get all businessProfiles
 // @route   GET /api/business-profiles
 // @access  Public
 const getBusinessProfiles = asyncHandler(async (req, res) => {
-  const business_profile = await BusinessProfile.find({});
-  res.status(200).json(business_profile);
+  const businessProfiles = await BusinessProfile.find({});
+  res.status(200).json(businessProfiles);
 });
 
 // @desc    Get a businessProfile by ID
 // @route   GET /api/business-profiles/:id
 // @access  Public
 const getBusinessProfileById = asyncHandler(async (req, res) => {
-  const business_profile = await BusinessProfile.findById(req.params.id);
-  if (!business_profile) {
-    res.status(404);
-    throw new Error("BusinessProfile not found");
+  const businessProfile = await BusinessProfile.findById(req.params.id);
+  if (!businessProfile) {
+    res.status(404).json({ message: "BusinessProfile not found" });
+  } else {
+    res.status(200).json(businessProfile);
   }
-  res.json(business_profile);
 });
 
-// @desc    Add a business_profile
-// @route   POST /api/businessProfile
+// @desc    Add a businessProfile
+// @route   POST /api/business-profiles
 // @access  Private/Admin
 const addBusinessProfile = asyncHandler(async (req, res) => {
+  // Validate the request body
+  const { error } = businessProfileSchema.validate(req.body);
+  if (error) {
+    res.status(400).json({ message: error.details[0].message });
+    return;
+  }
+
   const {
     name,
     businessType,
-    address,
+    address: { barangay, municipality },
+    contact: { phoneNumber, email },
+    website,
     description,
     details,
-    contactNumber,
-    website,
   } = req.body;
-  const business_profile = new BusinessProfile({
+
+  const businessProfile = new BusinessProfile({
     name,
     businessType,
-    address,
+    address: {
+      barangay,
+      municipality,
+    },
+    contact: {
+      phoneNumber,
+      email,
+    },
+    website,
     description,
     details,
-    contactNumber,
-    website,
   });
-  const created_business_profile = await business_profile.save();
-  res.status(201).json(created_business_profile);
+
+  const createdBusinessProfile = await businessProfile.save();
+  res.status(201).json(createdBusinessProfile);
 });
 
-// @desc    Update a business_profile
-// @route   PUT /api/businessProfile/:id
+// @desc    Update a businessProfile
+// @route   PUT /api/business-profiles/:id
 // @access  Private/Admin
 const updateBusinessProfile = asyncHandler(async (req, res) => {
-  const business_profile = await BusinessProfile.findById(req.params.id);
-  if (!business_profile) {
-    res.status(404);
-    throw new Error("BusinessProfile not found");
+  const { error } = businessProfileSchema.validate(req.body, {
+    allowUnknown: true,
+  });
+  if (error) {
+    res.status(400).json({ message: error.details[0].message });
+    return;
   }
-  const updated_business_profile = await BusinessProfile.findByIdAndUpdate(
+
+  const updatedBusinessProfile = await BusinessProfile.findByIdAndUpdate(
     req.params.id,
     req.body,
     {
@@ -64,20 +102,29 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       runValidators: true,
     }
   );
-  res.json(updated_business_profile);
+
+  if (!updatedBusinessProfile) {
+    res.status(404).json({ message: "BusinessProfile not found" });
+  } else {
+    res.status(200).json(updatedBusinessProfile);
+  }
 });
 
-// @desc    Delete a business_profile
-// @route   DELETE /api/businessProfile/:id
+// @desc    Delete a businessProfile
+// @route   DELETE /api/business-profiles/:id
 // @access  Private/Admin
 const deleteBusinessProfile = asyncHandler(async (req, res) => {
-  const result = await BusinessProfile.deleteOne({ _id: req.params.id });
-  if (result.deletedCount === 0) {
-    res.status(404);
-    throw new Error("BusinessProfile not found");
-  }
+  const deletedBusinessProfile = await BusinessProfile.findByIdAndDelete(
+    req.params.id
+  );
 
-  res.json({ message: "BusinessProfile removed", id: req.params.id });
+  if (!deletedBusinessProfile) {
+    res.status(404).json({ message: "BusinessProfile not found" });
+  } else {
+    res
+      .status(200)
+      .json({ message: "BusinessProfile removed", id: req.params.id });
+  }
 });
 
 module.exports = {
