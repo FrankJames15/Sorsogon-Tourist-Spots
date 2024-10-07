@@ -11,12 +11,11 @@ import {
   useDisclosure,
   Tooltip,
   Text,
+  VStack,
 } from "@chakra-ui/react";
+import { ViewIcon } from "@chakra-ui/icons";
 
-import { EditIcon } from "@chakra-ui/icons";
-export default function SpotPreviewModal({ spot }) {
-  const { name, address, description, details } = spot;
-
+export default function SpotPreviewModal({ spot , button_props }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -26,30 +25,41 @@ export default function SpotPreviewModal({ spot }) {
         placement="top"
         openDelay={250}
       >
-        <Button onClick={onOpen} size="sm" variant={"ghost"}>
-          {name}
+        <Button
+          onClick={onOpen}
+          leftIcon={<ViewIcon />}
+          variant={"outline"}
+          colorScheme={"blue"}
+          {...button_props}
+        >
+          Preview
         </Button>
       </Tooltip>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Preview</ModalHeader>
+        <ModalContent
+          // maxW="container.md"
+          p={5}
+        >
+          <ModalHeader>{spot.name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>
-              <strong>Name:</strong> {name}
-            </Text>
-            <Text>
-              <strong>Address:</strong> {address}
-            </Text>
-            <Text>
-              <strong>Description:</strong> {description}
-            </Text>
-            <Text>
-              <strong>Details:</strong> {details}
-            </Text>
-
+            <VStack align="start" spacing={3}>
+              <Text>
+                <strong>Address:</strong> <br />
+                {`${spot?.address?.barangay}, ${spot?.address?.municipality}`}
+              </Text>
+              <Text>
+                <strong>Description:</strong>
+                <br /> {spot?.description}
+              </Text>
+              <Text>
+                <strong>Details: </strong>
+                <br />
+                {spot?.details}
+              </Text>
+            </VStack>
           </ModalBody>
 
           <ModalFooter>

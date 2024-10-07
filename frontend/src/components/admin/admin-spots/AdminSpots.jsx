@@ -29,11 +29,14 @@ import { ViewIcon, EditIcon, DeleteIcon, AddIcon } from "@chakra-ui/icons";
 
 import CustomModal from "../../CustomModal";
 import { useLoaderData } from "react-router-dom";
-import SpotsForm from "./SpotsForm";
+import SpotsForm from "./TouristSpotForm";
 import EditSpotModal from "./EditSpotModal";
 import SpotPreviewModal from "./SpotPreviewModal";
 import DeleteAlert from "../../overlays/DeleteAlert";
 import MenuTemplate from "../../overlays/MenuTemplate";
+import ModalFootless from "../../overlays/ModalFootless";
+import TouristSpotForm from "./TouristSpotForm";
+import EditTouristSpotForm from "./EditTouristSpotForm";
 
 function AdminSpots() {
   const spots = useLoaderData();
@@ -42,21 +45,21 @@ function AdminSpots() {
       <Box maxW={"container.xl"}>
         <Flex align={"center"} p={2}>
           <Heading as="h2" size="md" textAlign="center" color="blue.500">
-            List of Tourist Spots
+            Tourist Spots
           </Heading>
           <Spacer />
           <CustomModal
+            button_label="Create New"
             button_props={{
               // size: "sm",
               colorScheme: "green",
               leftIcon: <AddIcon />,
             }}
-            button_label="Add"
             header="Add Spot"
             modal_props={{
               size: "2xl",
             }}
-            modal_body={<SpotsForm />}
+            modal_body={<TouristSpotForm />}
             footer_props={{
               display: "none",
             }}
@@ -96,7 +99,7 @@ function AdminSpots() {
                 return (
                   <Tr key={_id}>
                     <Td>
-                      <SpotPreviewModal spot={spot} />
+                      <strong>{spot.name}</strong>
                     </Td>
                     <Td>{address?.barangay + ", " + address?.municipality}</Td>
                     <Td
@@ -109,11 +112,36 @@ function AdminSpots() {
                     </Td>
                     <Td>{rating}</Td>
                     <Td>
-                      <EditSpotModal spot={spot} />,
-                      <DeleteAlert
-                        name={name}
-                        url={`http://localhost:5000/api/tourist-spots/${_id}`}
-                      />
+                      {/* Actions */}
+                      <Flex gap={2}>
+                        <SpotPreviewModal
+                          spot={spot}
+                          button_props={{
+                            size: "sm",
+                          }}
+                        />
+                        <ModalFootless
+                          button_label="Edit"
+                          button_props={{
+                            colorScheme: "blue",
+                            variant: "outline",
+                            leftIcon: <EditIcon />,
+                            size: "sm",
+                          }}
+                        >
+                          <EditTouristSpotForm spot={spot} />
+                        </ModalFootless>
+                        <DeleteAlert // Delete Alert
+                          name={name}
+                          button_props={{
+                            colorScheme: "red",
+                            variant: "outline",
+                            leftIcon: <DeleteIcon />,
+                            size: "sm",
+                          }}
+                          url={`http://localhost:5000/api/tourist-spots/${_id}`}
+                        />
+                      </Flex>
                     </Td>
                   </Tr>
                 );

@@ -11,7 +11,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
-export default function BusinessForm() {
+export default function TouristSpotForm() {
   const formRef = React.useRef();
   const [loading, setLoading] = useState(false); // Loading state
   const [errorMessage, setErrorMessage] = useState(""); // Error message state
@@ -22,46 +22,32 @@ export default function BusinessForm() {
 
     // Client-side validation (if needed)
     const formData = new FormData(formRef.current);
-    const phoneNumber = formData.get("phoneNumber");
-    if (!/^\+?\d{10,15}$/.test(phoneNumber)) {
-      setErrorMessage("Please enter a valid phone number.");
-      return;
-    }
 
-    const newBusiness = {
+    const newTouristSpot = {
       name: formData.get("name"),
-      businessType: formData.get("businessType"),
       address: {
         barangay: formData.get("barangay"),
         municipality: formData.get("municipality"),
       },
-      contact: {
-        phoneNumber: formData.get("phoneNumber"),
-        email: formData.get("email"),
-      },
-      website: formData.get("website"),
       description: formData.get("description"),
       details: formData.get("details"),
     };
 
     try {
       setLoading(true); // Start loading state
-      const response = await fetch(
-        "http://localhost:5000/api/business-profiles",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newBusiness),
-        }
-      );
+      const response = await fetch("http://localhost:5000/api/tourist-spots", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTouristSpot),
+      });
 
       if (response.ok) {
         formRef.current.reset();
-        setSuccessMessage("Business added successfully!");
+        setSuccessMessage("Tourist Spot added successfully!");
         setErrorMessage(""); // Clear any previous errors
-        window.location.reload(); // Refresh the page
+        window.location.reload(); // Optionally refresh the page
       } else {
         const errorData = await response.json();
         setErrorMessage(
@@ -96,17 +82,10 @@ export default function BusinessForm() {
             <Input
               type="text"
               name="name"
-              placeholder="Enter the name of the business"
+              placeholder="Enter the name of the tourist spot"
             />
           </FormControl>
-          <FormControl id="businessType" isRequired>
-            <FormLabel>Business Type</FormLabel>
-            <Input
-              type="text"
-              name="businessType"
-              placeholder="Enter the type of business"
-            />
-          </FormControl>
+
           <FormControl id="barangay" isRequired>
             <FormLabel>Barangay</FormLabel>
             <Input
@@ -115,6 +94,7 @@ export default function BusinessForm() {
               placeholder="Enter the barangay"
             />
           </FormControl>
+
           <FormControl id="municipality" isRequired>
             <FormLabel>Municipality</FormLabel>
             <Input
@@ -123,38 +103,15 @@ export default function BusinessForm() {
               placeholder="Enter the municipality"
             />
           </FormControl>
-          <FormControl id="phoneNumber" isRequired>
-            <FormLabel>Phone Number</FormLabel>
-            <Input
-              type="text"
-              name="phoneNumber"
-              placeholder="Enter the phone number"
-            />
-          </FormControl>
-          <FormControl id="email" isRequired>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              name="email"
-              placeholder="Enter the email address"
-            />
-          </FormControl>
-          <FormControl id="website">
-            <FormLabel>Website</FormLabel>
-            <Input
-              type="text"
-              name="website"
-              placeholder="Enter the website URL (optional)"
-            />
-          </FormControl>
-          <FormControl id="description" isRequired>
+
+          <FormControl id="description">
             <FormLabel>Description</FormLabel>
-            <Input
-              type="text"
+            <Textarea
               name="description"
-              placeholder="Enter the description of the business"
+              placeholder="Enter description (optional)"
             />
           </FormControl>
+
           <FormControl id="details">
             <FormLabel>Details</FormLabel>
             <Textarea
@@ -162,13 +119,14 @@ export default function BusinessForm() {
               placeholder="Enter additional details (optional)"
             />
           </FormControl>
+
           <Button
             type="submit"
             width={"200px"}
             colorScheme="blue"
             isDisabled={loading}
           >
-            {loading ? <Spinner size="sm" /> : "Add Business"}
+            {loading ? <Spinner size="sm" /> : "Add Tourist Spot"}
           </Button>
         </VStack>
       </form>

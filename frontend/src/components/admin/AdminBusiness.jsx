@@ -8,6 +8,7 @@ import {
   Heading,
   Spacer,
   Container,
+  Flex,
 } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import ReviewRating from "../ReviewRating";
@@ -33,7 +34,7 @@ export default function AdminBusiness() {
       >
         <HStack align={"center"} p={2}>
           <Heading as="h2" size="md" textAlign="center" color="blue.500">
-            List of Business Profiles
+            Business Profiles
           </Heading>
           <Spacer />
           <ModalFootless
@@ -81,47 +82,53 @@ export default function AdminBusiness() {
                 </Td>
                 <Td>{<ReviewRating reviews={business_profile?.reviews} />}</Td>
                 <Td>
-                  <ModalFootless
-                    button_label="View"
-                    button_props={{
-                      colorScheme: "blue",
-                      size: "sm",
-                      ms: 2,
-                      leftIcon: <ViewIcon />,
-                    }}
+                  <Flex
+                    align={"center"}
+                    justify={"center"}
+                    direction={"row"}
+                    wrap={"nowrap"}
+                    gap={2}
                   >
-                    <ViewBusinessProfile id={business_profile?._id} 
+                    {/* Actions */}
+                    <ModalFootless
+                      button_label="Preview"
+                      button_props={{
+                        colorScheme: "blue",
+                        size: "sm",
+                        variant: "outline",
+                        leftIcon: <ViewIcon />,
+                      }}
+                    >
+                      <ViewBusinessProfile id={business_profile?._id} />
+                    </ModalFootless>
+                    <ModalFootless
+                      button_label="Edit"
+                      button_props={{
+                        colorScheme: "blue",
+                        size: "sm",
+                        variant: "outline",
+                        leftIcon: <EditIcon />,
+                      }}
+                    >
+                      <EditBusinessProfileForm id={business_profile?._id} />
+                    </ModalFootless>
+                    <CustomAlertDialog
+                      button_label="Delete"
+                      button_props={{
+                        leftIcon: <DeleteIcon />,
+                        colorScheme: "red",
+                        variant: "outline",
+                        size: "sm",
+                      }}
+                      dialog_header={`Delete ${business_profile?.name} ?`}
+                      dialog_body="Are you sure? You can't undo this action afterwards."
+                      primary_button={
+                        <DeleteAction
+                          url={`http://localhost:5000/api/business-profiles/${business_profile?._id}`}
+                        />
+                      }
                     />
-                  </ModalFootless>
-                  <ModalFootless
-                    button_label="Edit"
-                    button_props={{
-                      colorScheme: "blue",
-                      size: "sm",
-                      ms: 2,
-                      leftIcon: <EditIcon />,
-                    }}
-                  >
-                    <EditBusinessProfileForm
-                      id={business_profile?._id}
-                    />
-                  </ModalFootless>
-                  <CustomAlertDialog
-                    button_label="Delete"
-                    button_props={{
-                      leftIcon: <DeleteIcon />,
-                      colorScheme: "red",
-                      size: "sm",
-                      ms: 2,
-                    }}
-                    dialog_header={`Delete ${business_profile?.name} ?`}
-                    dialog_body="Are you sure? You can't undo this action afterwards."
-                    primary_button={
-                      <DeleteAction
-                        url={`http://localhost:5000/api/business-profiles/${business_profile?._id}`}
-                      />
-                    }
-                  />
+                  </Flex>
                 </Td>
               </Tr>
             );

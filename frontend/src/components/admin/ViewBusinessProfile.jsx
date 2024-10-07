@@ -8,7 +8,7 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
-import { useParams, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 export default function ViewBusinessProfile({id}) {
   const [businessProfile, setBusinessProfile] = useState(null);

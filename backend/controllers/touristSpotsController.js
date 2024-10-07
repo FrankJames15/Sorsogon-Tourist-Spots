@@ -37,13 +37,14 @@ const addSpot = asyncHandler(async (req, res) => {
 // @route   PATCH /api/tourist-spots/:id
 // @access  Private/Admin
 const updateSpot = asyncHandler(async (req, res) => {
-  console.log(req.method, req.url, req.params.id);
 
   const spot = await Spot.findById(req.params.id);
+
   if (!spot) {
     res.status(404);
     throw new Error("Spot not found");
   }
+  
   const updateSpot = await Spot.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
