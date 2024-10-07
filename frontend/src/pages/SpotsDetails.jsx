@@ -62,36 +62,8 @@ function SpotsDetails() {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <Box maxW="800px" mx="auto">
-                  <DetailsTabPanel data={spot.details} />
-
-                  {/* {details.map((section, index) => (
-                    <Box key={index} mb={8}>
-                      <Heading as="h3" size="lg" mb={4} color="blue.600">
-                        {section.name.charAt(0).toUpperCase() +
-                          section.name.slice(1)}
-                      </Heading>
-
-                      {Array.isArray(section.content) ? (
-                        // Render as list if content is an array
-                        <UnorderedList ml={4}>
-                          {section.content.map((item, idx) =>
-                            typeof item === "string" ? (
-                              <ListItem key={idx}>{item}</ListItem>
-                            ) : (
-                              <ListItem key={idx}>
-                                <Text as="strong">{item.name}: </Text>
-                                {item.content}
-                              </ListItem>
-                            )
-                          )}
-                        </UnorderedList>
-                      ) : (
-                        // Render as text if content is a string
-                        <Text>{section.content}</Text>
-                      )}
-                    </Box>
-                  ))} */}
+                <Box maxW="800px">
+                  <DetailsTabPanel data={spot} />
                 </Box>
               </TabPanel>
               <TabPanel>

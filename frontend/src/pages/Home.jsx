@@ -15,20 +15,13 @@ function Home() {
   return (
     <>
       <HeroSection />
-      <Container
-        maxW={"container.xl"}
-        border={"2px dashed pink"}
-        bg={"gray.50"}
-        p={"5%"}
-        my={5}
-      >
+      <Container maxW={"container.xl"} bg={"gray.50"} p={"5%"} my={5}>
         <HomeFeaturesSection />
         <Divider />
         <PopularSpots spots={spots} />
         <Divider />
-        <HomePreviewBusinesses
-        />
-        <Divider />
+        <HomePreviewBusinesses />
+        <Divider my={5} />
         <ContactSection />
       </Container>
     </>

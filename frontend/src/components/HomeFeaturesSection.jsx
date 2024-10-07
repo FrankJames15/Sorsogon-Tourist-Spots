@@ -18,7 +18,9 @@ export const HomeFeaturesSection = (props) => {
   };
 
   return (
-    <Box as="section" px={{ base: "5%" }}>
+    <Box as="section" px={{ base: "5%" }}
+      pb={5}
+    >
       {/* Tagline, Heading, Description */}
       <VStack spacing={6} mb={{ base: 12, md: 18, lg: 20 }} textAlign="center">
         <Text fontSize="sm" fontWeight="semibold" color="gray.400">

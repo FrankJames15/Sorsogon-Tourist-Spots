@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@chakra-ui/react";
 
-export default function CustomGrid({ children , props}) {
+export default function CustomGrid({ children , ...props}) {
   return (
     <>
       <Grid

@@ -23,6 +23,7 @@ export default function BusinessProfileCard({ business }) {
     <>
       <Card
         overflow={"hidden"}
+        maxW={"500px"}
         p={2}
         boxShadow={"md"}
         borderRadius={"lg"}

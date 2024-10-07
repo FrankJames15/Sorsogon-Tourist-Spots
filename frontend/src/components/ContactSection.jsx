@@ -22,8 +22,8 @@ export function ContactSection({ props }) {
   };
 
   return (
-    <Box as="section" py={"4rem"} border={"2px dashed gray"}>
-      <Container maxW="container.xl" centerContent border={"2px dashed gray"}>
+    <Box as="section" py={"4rem"} >
+      <Container maxW="container.xl" centerContent >
         <VStack spacing={5}>
           <VStack spacing={2} textAlign="center">
             <Heading
@@ -38,7 +38,7 @@ export function ContactSection({ props }) {
           </VStack>
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
             {contacts.map((contact, index) => (
-              <VStack key={index} textAlign="center" border={"2px dashed gray"}>
+              <VStack key={index} textAlign="center" >
                 <Icon as={contact.icon} boxSize={12} color="blue.500" mb={4} />
                 <Heading
                   as="h3"

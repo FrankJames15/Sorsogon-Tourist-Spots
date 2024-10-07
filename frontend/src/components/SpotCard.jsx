@@ -17,15 +17,14 @@ export default function SpotCard({ spot }) {
     <>
       <Card
         overflow={"hidden"}
-        p={2}
         boxShadow={"md"}
-        borderRadius={"lg"}
+        borderRadius={"xl"}
         _hover={{ shadow: "xl", transition: "all .7/s ease-out" }}
         overFlow={"hidden"}
       >
         <Image
           objectFit={"cover"}
-          src={spot?.images}
+          src={`http://localhost:5000/${spot?.images?.[0]?.path}`}
           alt={spot?.name}
           aspectRatio={16 / 9}
         />
@@ -54,9 +53,6 @@ export default function SpotCard({ spot }) {
   );
 }
 
-
-
-
 //                 <ReviewRating
 //                   avgRating={
 //                     spot?.reviews?.reduce(
@@ -66,4 +62,3 @@ export default function SpotCard({ spot }) {
 //                   }
 //                   reviewCount={spot?.reviews?.length}
 //                 />
-

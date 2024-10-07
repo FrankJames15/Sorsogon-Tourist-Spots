@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require('path');
 
 const colors = require("colors");
 const { errorHandler } = require("./middleware/errorMiddleware");
@@ -14,9 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/tourist-spots", require("./routes/touristSpotsRoutes"));
 app.use("/api/business-profiles", require("./routes/businessProfileRoutes"));
-
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use(errorHandler);
-
 connectDB().then(() =>
   app.listen(PORT, () =>
     console.log(`\nServer started on PORT ${PORT}...`.yellow.bold)
