@@ -7,7 +7,7 @@ function ReviewRating({ reviews }) {
   return (
     <>
       <HStack>
-        {!reviews ? (
+        {reviews?.length === 0 || !reviews ? (
           <Text color={"gray.400"}>No reviews yet</Text>
         ) : (
           <Box
@@ -16,7 +16,8 @@ function ReviewRating({ reviews }) {
             align={"center"}
             fontSize="sm"
             color={"gray.400"}
-          >
+            >
+              
             <Box display={"flex"} bg={"yellow.100"} px={1}>
               <StarIcon
                 alignSelf={"center"}
@@ -25,9 +26,12 @@ function ReviewRating({ reviews }) {
                 boxSize={"1rem"}
               />
               <Text fontWeight={"semibold"} color={"gray.600"}>
-                {reviews.reduce((acc, review) => acc + review.rating, 0) /
+                {reviews?.reduce((acc, review) => acc + review.rating, 0) /
                   reviews.length}{" "}
-                / 5
+                / 5{" "}
+                <Text as={"span"} color="gray.400">
+                  | {reviews.length} reviews
+                </Text>
               </Text>
             </Box>
           </Box>

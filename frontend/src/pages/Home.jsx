@@ -6,8 +6,9 @@ import PopularSpots from "../components/PopularSpots";
 import { useLoaderData } from "react-router-dom";
 import { HomeFeaturesSection } from "../components/HomeFeaturesSection";
 import { ContactSection } from "../components/ContactSection";
-import Sample from "../components/Sample";
 import HomePreviewBusinesses from "./HomePreviewBusinesses";
+import businessDetailsLoader from "../loaders/businessDetailsLoader";
+import businessProfilesLoader from "../loaders/businessProfilesLoader";
 
 function Home() {
   const spots = useLoaderData();
@@ -19,14 +20,13 @@ function Home() {
         border={"2px dashed pink"}
         bg={"gray.50"}
         p={"5%"}
-        mt={5}
+        my={5}
       >
         <HomeFeaturesSection />
         <Divider />
-        <PopularSpots spots_data={spots} />
+        <PopularSpots spots={spots} />
         <Divider />
         <HomePreviewBusinesses
-          spots_data={spots}
         />
         <Divider />
         <ContactSection />

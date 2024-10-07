@@ -22,6 +22,7 @@ function CustomModal({
   primary_button_props,
   primary_button_label,
   primary_button_function,
+  content,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -36,14 +37,12 @@ function CustomModal({
         {button_label}
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}
-      {...modal_props}
-      >
+      <Modal isOpen={isOpen} onClose={onClose} {...modal_props}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent {...content}>
           <ModalHeader>{header}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody mb={4}>
+          <ModalBody>
             {children}
             {modal_body}
           </ModalBody>

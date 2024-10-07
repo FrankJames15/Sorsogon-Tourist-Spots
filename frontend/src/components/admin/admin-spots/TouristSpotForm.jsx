@@ -9,10 +9,15 @@ import {
   Alert,
   AlertIcon,
   Spinner,
+  Toast,
+  useToast,
 } from "@chakra-ui/react";
+import { CheckIcon } from "@chakra-ui/icons";
 
 export default function TouristSpotForm() {
   const formRef = React.useRef();
+  const toast = useToast();
+
   const [loading, setLoading] = useState(false); // Loading state
   const [errorMessage, setErrorMessage] = useState(""); // Error message state
   const [successMessage, setSuccessMessage] = useState(""); // Success message state
@@ -47,7 +52,19 @@ export default function TouristSpotForm() {
         formRef.current.reset();
         setSuccessMessage("Tourist Spot added successfully!");
         setErrorMessage(""); // Clear any previous errors
-        window.location.reload(); // Optionally refresh the page
+        // toast
+        toast({
+          title: "Success",
+          description: "Tourist spot added successfully!",
+          status: "success",
+          isClosable: true,
+          position: "top",
+          variant: "subtle",
+          duration: 2000,
+        });
+        setTimeout(() => {
+          window.location.reload(); // Optionally refresh the page
+        }, 2000);
       } else {
         const errorData = await response.json();
         setErrorMessage(
@@ -63,18 +80,6 @@ export default function TouristSpotForm() {
 
   return (
     <>
-      {errorMessage && (
-        <Alert status="error">
-          <AlertIcon />
-          {errorMessage}
-        </Alert>
-      )}
-      {successMessage && (
-        <Alert status="success">
-          <AlertIcon />
-          {successMessage}
-        </Alert>
-      )}
       <form ref={formRef} onSubmit={handleSubmit}>
         <VStack spacing={4}>
           <FormControl id="name" isRequired>
@@ -122,11 +127,17 @@ export default function TouristSpotForm() {
 
           <Button
             type="submit"
-            width={"200px"}
-            colorScheme="blue"
+            width={"100%"}
+            variant={"outline"}
+            colorScheme="green"
             isDisabled={loading}
+            leftIcon={<CheckIcon />}
+            _hover={{
+              bg: "green.500",
+              color: "white",
+            }}
           >
-            {loading ? <Spinner size="sm" /> : "Add Tourist Spot"}
+            {loading ? <Spinner size="sm" /> : "Save"}
           </Button>
         </VStack>
       </form>

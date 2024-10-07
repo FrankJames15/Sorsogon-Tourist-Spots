@@ -10,13 +10,15 @@ import {
   Spinner,
   Alert,
   AlertIcon,
+  useToast,
 } from "@chakra-ui/react";
 
 export default function EditTouristSpotForm({ spot }) {
+  const toast = useToast();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
-  // Ensure that touristSpot is initialized only after spot is available
   const [touristSpot, setTouristSpot] = useState({
     name: "",
     address: { barangay: "", municipality: "" },
@@ -26,7 +28,6 @@ export default function EditTouristSpotForm({ spot }) {
 
   useEffect(() => {
     if (spot) {
-      // Initialize touristSpot state with spot prop once it's available
       setTouristSpot({
         name: spot.name || "",
         address: spot.address || { barangay: "", municipality: "" },
@@ -40,7 +41,7 @@ export default function EditTouristSpotForm({ spot }) {
     const { name, value } = event.target;
 
     if (name.startsWith("address.")) {
-      const fieldName = name.split(".")[1]; // Get 'barangay' or 'municipality'
+      const fieldName = name.split(".")[1]; // Extract 'barangay' or 'municipality'
       setTouristSpot((prev) => ({
         ...prev,
         address: { ...prev.address, [fieldName]: value },
@@ -55,27 +56,34 @@ export default function EditTouristSpotForm({ spot }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+
+    if (
+      !touristSpot.name ||
+      !touristSpot.address.barangay ||
+      !touristSpot.address.municipality
+    ) {
+      setError("Please fill in all required fields.");
+      return;
+    }
 
     const updatedTouristSpot = {
-      name: formData.get("name"),
+      name: touristSpot.name,
       address: {
-        barangay: formData.get("address.barangay"),
-        municipality: formData.get("address.municipality"),
+        barangay: touristSpot.address.barangay,
+        municipality: touristSpot.address.municipality,
       },
-      description: formData.get("description"),
-      details: formData.get("details"),
+      description: touristSpot.description,
+      details: touristSpot.details,
     };
 
     try {
       setLoading(true);
+      setError(null); // Clear any previous errors
       const response = await fetch(
         `http://localhost:5000/api/tourist-spots/${spot._id}`,
         {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedTouristSpot),
         }
       );
@@ -84,8 +92,27 @@ export default function EditTouristSpotForm({ spot }) {
         throw new Error("Failed to update tourist spot");
       }
 
-      alert("Tourist spot updated successfully!");
-      window.location.reload();
+      
+      toast({
+        title: "Success",
+        description: "Tourist spot updated successfully!",
+        status: "success",
+        isClosable: true,
+        position: "top",
+        variant: "subtle",
+        duration: 2000,
+      });
+      setSuccessMessage("Tourist spot updated successfully!");
+      setTouristSpot({
+        name: "",
+        address: { barangay: "", municipality: "" },
+        description: "",
+        details: "",
+      }); // Clear form after success
+
+      setTimeout(() => {
+        window.location.reload(); // Refresh the page after success
+      }, 2000);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -106,21 +133,7 @@ export default function EditTouristSpotForm({ spot }) {
 
   return (
     <Box p={4}>
-      {loading && (
-        <Box p={4} textAlign="center">
-          <Spinner size="xl" />
-        </Box>
-      )}
-
-      {error && (
-        <Box p={4}>
-          <Alert status="error">
-            <AlertIcon />
-            {error}
-          </Alert>
-        </Box>
-      )}
-
+      
       <form onSubmit={handleSubmit}>
         <VStack spacing={4}>
           <FormControl id="name" isRequired>
@@ -138,7 +151,7 @@ export default function EditTouristSpotForm({ spot }) {
             <Input
               type="text"
               name="address.barangay"
-              value={touristSpot.address?.barangay}
+              value={touristSpot.address.barangay}
               onChange={handleChange}
             />
           </FormControl>
@@ -148,7 +161,7 @@ export default function EditTouristSpotForm({ spot }) {
             <Input
               type="text"
               name="address.municipality"
-              value={touristSpot.address?.municipality}
+              value={touristSpot.address.municipality}
               onChange={handleChange}
             />
           </FormControl>
@@ -171,8 +184,8 @@ export default function EditTouristSpotForm({ spot }) {
             />
           </FormControl>
 
-          <Button type="submit" width={"200px"} colorScheme="blue">
-            Update Tourist Spot
+          <Button type="submit" colorScheme="blue" isDisabled={loading}>
+            {loading ? <Spinner size="sm" /> : "Update Tourist Spot"}
           </Button>
         </VStack>
       </form>

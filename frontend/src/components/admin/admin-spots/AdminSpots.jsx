@@ -22,6 +22,7 @@ import {
   Tooltip,
   useDisclosure,
   Flex,
+  useToast,
 } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
@@ -48,7 +49,7 @@ function AdminSpots() {
             Tourist Spots
           </Heading>
           <Spacer />
-          <CustomModal
+          <CustomModal // Add Spot Modal
             button_label="Create New"
             button_props={{
               // size: "sm",
@@ -62,6 +63,9 @@ function AdminSpots() {
             modal_body={<TouristSpotForm />}
             footer_props={{
               display: "none",
+            }}
+            content={{
+              p: 5,
             }}
           />
         </Flex>

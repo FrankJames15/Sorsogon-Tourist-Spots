@@ -68,9 +68,9 @@ function BusinessProfileDetails() {
                       fontWeight={"bold"}
                       color={"blue.600"}
                     >
-                      {reviews.length} Reviews
+                      {reviews?.length} Reviews
                     </Text>
-                    {reviews.map((reveiw) => (
+                    {reviews?.map((reveiw) => (
                       <VStack
                         key={reveiw.index}
                         p={4}

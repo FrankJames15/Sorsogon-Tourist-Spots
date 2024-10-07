@@ -27,7 +27,7 @@ import Test from "./pages/Test.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<RootLayout />} loader={spotsLoader}>
+      <Route path="/" element={<RootLayout />} >
         <Route index element={<Home />} loader={spotsLoader} />
         <Route path="test" element={<Test />} />
 

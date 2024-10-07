@@ -1,4 +1,7 @@
-import React from "react";
+import React, {
+  useState,
+  useEffect
+} from "react";
 
 import { Box, Button, VStack, Heading, Grid, Text } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
@@ -7,7 +10,19 @@ import { NavLink } from "react-router-dom";
 import BusinessProfileCard from "../components/BusinessProfileCard";
 import CustomGrid from "../components/CustomGrid";
 
-function HomePreviewBusinesses({ spots_data }) {
+
+function HomePreviewBusinesses() {
+  const  [businesses, setBusinesses] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/api/business-profiles")
+      .then((res) => res.json())
+      .then((data) => {
+        setBusinesses(data);
+      });
+  }, []);
+    
+  // get the first 3 spots
+  const top_businesses = businesses.slice(0, 3);
   return (
     <>
       <Box bg={"gray.50"} border={"2px dashed pink"}>
@@ -25,8 +40,8 @@ function HomePreviewBusinesses({ spots_data }) {
           </VStack>
 
           <CustomGrid>
-            {spots_data.map((spot, index) => (
-              <BusinessProfileCard key={index} business_profile={spot} />
+            {top_businesses.map((business, index) => (
+              <BusinessProfileCard key={index} business={business} />
             ))}
           </CustomGrid>
 

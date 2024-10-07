@@ -48,7 +48,7 @@ export const HomeFeaturesSection = (props) => {
               color="blue.500"
               as={section.icon.src}
               boxSize="48px"
-              mb={4}
+              mb={2}
             />
             <HStack>{section.icon.src}</HStack>
             <Heading
@@ -71,14 +71,14 @@ export const PropsDefault = {
   tagline: "Features",
   heading: "Explore Sorsogon's Hidden Gems",
   description:
-    "Welcome to Sorsogon Tourist Spots, your ultimate guide to exploringthe breathtaking attractions of Sorsogon. Use our interactive map tonavigate through the city's popular tourist spots, read reviews, anddiscover hidden gems that will make your visit truly memorable.",
+    "Welcome to Sorsogon Tourist Spots, your ultimate guide to exploring the breathtaking attractions of Sorsogon. Use our interactive map tonavigate through the city's popular tourist spots, read reviews.",
   sections: [
     {
       icon: {
         src: FaBriefcase,
         alt: "Relume logo 1",
       },
-      heading: "Promote Your Business with Us",
+      heading: "Promote Your Business",
       description:
         "Showcase your products and services to a wider audience. Increase your visibility and attract more customers. Boost your business with Sorsogon Tourist Spots.",
     },
@@ -87,7 +87,7 @@ export const PropsDefault = {
         src: FaCommentDots,
         alt: "Relume logo 2",
       },
-      heading: "Read Reviews and Comments",
+      heading: "Read Reviews",
       description:
         "Get insights from fellow travelers and locals. Read reviews and comments to help you plan your itinerary and make the most out of your Sorsogon experience.",
     },

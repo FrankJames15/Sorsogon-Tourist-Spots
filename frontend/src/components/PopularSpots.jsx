@@ -16,12 +16,15 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import SpotCard from "./SpotCard";
 import { NavLink } from "react-router-dom";
+import CustomGrid from "./CustomGrid";
 
-function PopularSpots({ spots_data }) {
+function PopularSpots({ spots }) {
+  // get the first 3 spots
+  spots = spots.slice(0, 3);
+
   return (
     <>
-      <Box p={"4rem"} bg={"gray.50"}>
-        <Container maxW={"container.xl"} border={"2px dashed gray"}>
+      <Box py={"5rem"} bg={"gray.50"}>
           <VStack spacing={"3rem"}>
             <VStack spacing={2}>
               <Heading
@@ -37,24 +40,22 @@ function PopularSpots({ spots_data }) {
               </Text>
             </VStack>
 
-            <Grid
-              width="full"
-              maxW={"1000px"}
-              mx={"auto"}
-              border={"2px dashed gray"}
-            >
-              <SpotCard data={spots_data} />
-            </Grid>
+            <CustomGrid>
+              {spots.map((spot, index) => (
+                <SpotCard spot={spot} key={index} />
+              ))}
+            </CustomGrid>
             <Button
               as={NavLink}
               to={"/spots"}
               colorScheme="blue"
               variant="outline"
+              _hover={{ bg: "blue.500", color: "white" }}
+              rightIcon={<ChevronRightIcon />}
             >
               View all
             </Button>
           </VStack>
-        </Container>
       </Box>
     </>
   );
